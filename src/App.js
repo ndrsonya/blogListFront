@@ -6,8 +6,12 @@ import Notification from './components/Notification'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
-  const [newBlog, setNewBlog] = useState('')
-  const [showAll, setShowAll] = useState(true)
+  const [newBlog, setNewBlog] = useState({
+    author: '',
+    title: '',
+    url: ''
+  })
+
   const [errorMessage, setErrorMessage] = useState(null)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -55,6 +59,18 @@ const App = () => {
     setUser(null)
   }
 
+  const addBlog = () => {
+    blogService.create(newBlog);
+  }
+
+  const handleBLogChange = (event) => {
+    const value = event.target.value;
+    setNewBlog({
+      ...newBlog,
+      [event.target.name]: value
+    });
+  }
+
 
   const loginForm = () => (
     <form onSubmit={handleLogin}>
@@ -81,13 +97,32 @@ const App = () => {
   )
 
   const blogForm = () => (
+
     <form
-    //onSubmit={addBlog}
+      onSubmit={addBlog}
     >
+      <h1>create new</h1>
+      title:
       <input
-        value={newBlog}
-      //onChange={handleBLogChange}
+        name="title"
+        value={newBlog.title}
+        onChange={handleBLogChange}
       />
+      <br />
+      author:
+      <input
+        name="author"
+        value={newBlog.author}
+        onChange={handleBLogChange}
+      />
+      <br />
+       url:
+      <input
+        name="url"
+        value={newBlog.url}
+        onChange={handleBLogChange}
+      />
+      <br />
       <button type="submit">save</button>
     </form>
   )
@@ -105,7 +140,7 @@ const App = () => {
         <div>
           <p>{user.name} logged-in</p>
           <button
-          onClick={() => handleLogout()}
+            onClick={() => handleLogout()}
           >
             logout
           </button>
