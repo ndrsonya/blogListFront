@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Blog from './components/Blog'
+import BlogForm from './components/BlogForm'
 import blogService from './services/blogs'
 import loginService from './services/login'
 import Notification from './components/Notification'
@@ -62,7 +63,12 @@ const App = () => {
   }
 
   const addBlog = () => {
-    blogService.create(newBlog)
+    blogService
+    .create(newBlog)
+    .then(returnedBlog => {
+      setBlogs(blogs.concat(returnedBlog))
+        setNewBlog('')
+    })
     setNEwBlogVisibleButton(true)
   }
 
@@ -83,7 +89,7 @@ const App = () => {
     <form onSubmit={handleLogin}>
       <div>
         username
-          <input
+        <input
           type="text"
           value={username}
           name="Username"
@@ -92,7 +98,7 @@ const App = () => {
       </div>
       <div>
         password
-          <input
+        <input
           type="password"
           value={password}
           name="Password"
@@ -102,39 +108,6 @@ const App = () => {
       <button type="submit">login</button>
     </form>
   )
-
-  const blogForm = () => (
-
-    <form
-      onSubmit={addBlog}
-    >
-      <h1>create new</h1>
-      title:
-      <input
-        name="title"
-        value={newBlog.title}
-        onChange={handleBLogChange}
-      />
-      <br />
-      author:
-      <input
-        name="author"
-        value={newBlog.author}
-        onChange={handleBLogChange}
-      />
-      <br />
-       url:
-      <input
-        name="url"
-        value={newBlog.url}
-        onChange={handleBLogChange}
-      />
-      <br />
-      <button type="submit">save</button>
-    </form>
-  )
-
-
 
   return (
     <div>
@@ -153,13 +126,21 @@ const App = () => {
           </button>
 
           {
-          newBlogVisibleButton === true?
-          <button
-            onClick={() => handleBlogFormVisibility()}
-          >
-            create new blog
-          </button>
-          : blogForm()}
+            newBlogVisibleButton === true ?
+              <button
+                onClick={() => handleBlogFormVisibility()}
+              >
+                create new blog
+              </button>
+              : <BlogForm
+                newBlog={newBlog}
+                handleBLogChange={handleBLogChange}
+                handleBlogSubmit={addBlog}
+              />
+              
+          }
+          
+
           <div>
             {blogs.map(blog =>
               <Blog key={blog.id} blog={blog} />

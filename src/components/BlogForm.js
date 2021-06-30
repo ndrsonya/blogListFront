@@ -1,11 +1,11 @@
 import React from 'react'
 
-const BlogForm = ({ addBlog, newBlog, handleBLogChange}) => (
+const BlogForm = ({ newBlog, handleBLogChange, handleBlogSubmit}) => (
     <div>
         <h2>Create a new blog</h2>
 
         <form
-            onSubmit={addBlog}
+            onSubmit={handleBlogSubmit}
         >
             <h1>create new</h1>
       title:
