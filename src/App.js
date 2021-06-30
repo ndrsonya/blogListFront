@@ -17,6 +17,7 @@ const App = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
+  const [newBlogVisibleButton, setNEwBlogVisibleButton] = useState(true);
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -61,7 +62,8 @@ const App = () => {
   }
 
   const addBlog = () => {
-    blogService.create(newBlog);
+    blogService.create(newBlog)
+    setNEwBlogVisibleButton(true)
   }
 
   const handleBLogChange = (event) => {
@@ -70,6 +72,10 @@ const App = () => {
       ...newBlog,
       [event.target.name]: value
     });
+  }
+
+  const handleBlogFormVisibility = () => {
+    setNEwBlogVisibleButton(false)
   }
 
 
@@ -145,7 +151,15 @@ const App = () => {
           >
             logout
           </button>
-          {blogForm()}
+
+          {
+          newBlogVisibleButton === true?
+          <button
+            onClick={() => handleBlogFormVisibility()}
+          >
+            create new blog
+          </button>
+          : blogForm()}
           <div>
             {blogs.map(blog =>
               <Blog key={blog.id} blog={blog} />
