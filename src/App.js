@@ -64,11 +64,11 @@ const App = () => {
 
   const addBlog = () => {
     blogService
-    .create(newBlog)
-    .then(returnedBlog => {
-      setBlogs(blogs.concat(returnedBlog))
+      .create(newBlog)
+      .then(returnedBlog => {
+        setBlogs(blogs.concat(returnedBlog))
         setNewBlog('')
-    })
+      })
     setNEwBlogVisibleButton(true)
   }
 
@@ -137,13 +137,17 @@ const App = () => {
                 handleBLogChange={handleBLogChange}
                 handleBlogSubmit={addBlog}
               />
-              
+
           }
-          
+
 
           <div>
             {blogs.map(blog =>
-              <Blog key={blog.id} blog={blog} />
+              <div>
+                <Blog key={blog.id} blog={blog} />
+                <br />
+              </div>
+
             )}
           </div>
         </div>
