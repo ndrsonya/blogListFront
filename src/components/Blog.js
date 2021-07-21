@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import axios from 'axios'
+import blogService from '../services/blogs'
 
 
 const Blog = ({ blog }) => {
@@ -19,8 +19,7 @@ const Blog = ({ blog }) => {
       title: blog.title,
       url: blog.url
     }
-    axios
-      .put(`http://localhost:3003/api/addLikes/${blog.id}`, updatedBlog)
+    blogService.update(blog.id, updatedBlog)
     window.location.reload();
   }
   const blogStyle = {

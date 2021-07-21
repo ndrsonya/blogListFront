@@ -11,7 +11,8 @@ const App = () => {
   const [newBlog, setNewBlog] = useState({
     author: '',
     title: '',
-    url: ''
+    url: '',
+    likes: 0
   })
 
   const [errorMessage, setErrorMessage] = useState(null)
