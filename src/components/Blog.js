@@ -1,10 +1,27 @@
 import React, { useState } from 'react'
+import axios from 'axios'
+
 
 const Blog = ({ blog }) => {
 
   const [detailsVisibility, setDetailsVisibility] = useState(false)
   const handleOnClick = (param) => {
     setDetailsVisibility(param);
+  }
+
+  const handleLike = () => {
+
+    const updatedLikes = blog.likes + 1
+    const updatedBlog = {
+      user: blog.user.id,
+      likes: updatedLikes,
+      author: blog.author,
+      title: blog.title,
+      url: blog.url
+    }
+    axios
+      .put(`http://localhost:3003/api/addLikes/${blog.id}`, updatedBlog)
+    window.location.reload();
   }
   const blogStyle = {
     paddingTop: 10,
@@ -16,17 +33,17 @@ const Blog = ({ blog }) => {
 
 
   return (
-    <div style={blogStyle}> 
-      {blog.title} {blog.author} 
+    <div style={blogStyle}>
+      {blog.title} {blog.author}
       {detailsVisibility ?
-      <div>
-        {blog.url} 
-        <br/>
-        likes: {blog.likes}
-        <button>like</button>
-        <br/>
-        <button onClick={() => handleOnClick(false)}>Hide</button>
-      </div>
+        <div>
+          {blog.url}
+          <br />
+          likes: {blog.likes}
+          <button onClick={() => handleLike()}>like</button>
+          <br />
+          <button onClick={() => handleOnClick(false)}>Hide</button>
+        </div>
         : <button onClick={() => handleOnClick(true)}>View</button>}
 
     </div>)
