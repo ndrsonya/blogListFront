@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import blogService from '../services/blogs'
+import PropTypes from 'prop-types'
+
 
 
 const Blog = ({ blog }) => {
@@ -46,6 +48,10 @@ const Blog = ({ blog }) => {
         : <button onClick={() => handleOnClick(true)}>View</button>}
 
     </div>)
+}
+
+Blog.propTypes = {
+  blog: PropTypes.object.isRequired
 }
 
 export default Blog
