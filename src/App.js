@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-key */
 import React, { useState, useEffect } from 'react'
 import Blog from './components/Blog'
 import BlogForm from './components/BlogForm'
@@ -19,7 +20,7 @@ const App = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
-  const [newBlogVisibleButton, setNEwBlogVisibleButton] = useState(true);
+  const [newBlogVisibleButton, setNEwBlogVisibleButton] = useState(true)
 
   useEffect(() => {
     blogService.getAll().then(blogs => {
@@ -27,7 +28,7 @@ const App = () => {
       setBlogs(blogs)
     }
     )
-    
+
 
   }, [])
 
@@ -83,11 +84,11 @@ const App = () => {
   }
 
   const handleBLogChange = (event) => {
-    const value = event.target.value;
+    const value = event.target.value
     setNewBlog({
       ...newBlog,
       [event.target.name]: value
-    });
+    })
   }
 
   const handleBlogFormVisibility = () => {

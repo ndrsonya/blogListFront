@@ -8,7 +8,7 @@ const Blog = ({ blog }) => {
 
   const [detailsVisibility, setDetailsVisibility] = useState(false)
   const handleOnClick = (param) => {
-    setDetailsVisibility(param);
+    setDetailsVisibility(param)
   }
 
   const handleLike = () => {
@@ -22,7 +22,7 @@ const Blog = ({ blog }) => {
       url: blog.url
     }
     blogService.update(blog.id, updatedBlog)
-    window.location.reload();
+    window.location.reload()
   }
   const blogStyle = {
     paddingTop: 10,
