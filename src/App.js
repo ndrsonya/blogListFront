@@ -22,9 +22,13 @@ const App = () => {
   const [newBlogVisibleButton, setNEwBlogVisibleButton] = useState(true);
 
   useEffect(() => {
-    blogService.getAll().then(blogs =>
+    blogService.getAll().then(blogs => {
+      blogs.sort((a, b) => (a.likes > b.likes) ? 1 : -1)
       setBlogs(blogs)
+    }
     )
+    
+
   }, [])
 
   useEffect(() => {
@@ -68,7 +72,12 @@ const App = () => {
       .create(newBlog)
       .then(returnedBlog => {
         setBlogs(blogs.concat(returnedBlog))
-        setNewBlog('')
+        setNewBlog({
+          author: '',
+          title: '',
+          url: '',
+          likes: 0
+        })
       })
     setNEwBlogVisibleButton(true)
   }
