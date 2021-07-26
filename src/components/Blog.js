@@ -12,7 +12,6 @@ const Blog = ({ blog }) => {
   }
 
   const handleLike = () => {
-
     const updatedLikes = blog.likes + 1
     const updatedBlog = {
       user: blog.user.id,
@@ -24,6 +23,12 @@ const Blog = ({ blog }) => {
     blogService.update(blog.id, updatedBlog)
     window.location.reload()
   }
+
+  const handleDelete = () => {
+    blogService.deleteBlog(blog.id)
+    window.location.reload()
+  }
+
   const blogStyle = {
     paddingTop: 10,
     paddingLeft: 2,
@@ -42,6 +47,7 @@ const Blog = ({ blog }) => {
           <br />
           likes: {blog.likes}
           <button onClick={() => handleLike()}>like</button>
+          <button onClick={() => handleDelete()}>delete</button>
           <br />
           <button onClick={() => handleOnClick(false)}>Hide</button>
         </div>

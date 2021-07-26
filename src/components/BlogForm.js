@@ -11,6 +11,7 @@ const BlogForm = ({ newBlog, handleBLogChange, handleBlogSubmit }) => (
       title:
       <input
         name="title"
+        id="title"
         value={newBlog.title}
         onChange={handleBLogChange}
       />
@@ -18,6 +19,7 @@ const BlogForm = ({ newBlog, handleBLogChange, handleBlogSubmit }) => (
       author:
       <input
         name="author"
+        id="author"
         value={newBlog.author}
         onChange={handleBLogChange}
       />
@@ -25,6 +27,7 @@ const BlogForm = ({ newBlog, handleBLogChange, handleBlogSubmit }) => (
        url:
       <input
         name="url"
+        id="url"
         value={newBlog.url}
         onChange={handleBLogChange}
       />

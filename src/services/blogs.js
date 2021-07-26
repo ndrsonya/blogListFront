@@ -25,5 +25,9 @@ const update = (id, updatedBlog) => {
   axios.put(`http://localhost:3003/api/addLikes/${id}`, updatedBlog)
 }
 
+const deleteBlog = (id) => {
+  axios.delete(`http://localhost:3003/api/blogs/${id}`)
+}
 
-export default { getAll, create, update, setToken }
+
+export default { getAll, create, update, setToken, deleteBlog }
