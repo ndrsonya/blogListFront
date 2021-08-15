@@ -1,6 +1,11 @@
-# Getting Started with Create React App
+# BlogList app frontend
+Bloglist is a fullstack app that includes frontend and backend parts. The idea of the project to demnstrate some coding skills in fullstack web development. In the frontend part are used React, jest, cypress.
+The app allows to log in, see the sorted (by likes) list of blogs, add new blogs, delete existing, like blogs. The functionality might be expanded in future if developer have time to implement new features that make sense from UX perspective.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+To run the project you need to have a backend part up and running locally. You can clone a backend part from https://github.com/ndrsonya/blogListFront
+## Login credentials
+To log in use "sonya" as user and password
+## Run `npm install` to install project locally 
 
 ## Available Scripts
 
