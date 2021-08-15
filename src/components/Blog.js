@@ -4,24 +4,18 @@ import PropTypes from 'prop-types'
 
 
 
-const Blog = ({ blog }) => {
+const Blog = ({ blog, getAllBlogs }) => {
 
   const [detailsVisibility, setDetailsVisibility] = useState(false)
   const handleOnClick = (param) => {
     setDetailsVisibility(param)
   }
 
-  const handleLike = () => {
-    const updatedLikes = blog.likes + 1
-    const updatedBlog = {
-      user: blog.user.id,
-      likes: updatedLikes,
-      author: blog.author,
-      title: blog.title,
-      url: blog.url
-    }
-    blogService.update(blog.id, updatedBlog)
-    window.location.reload()
+  const handleLike = async () => {
+    blog.likes += 1
+    console.log('blog to update', blog)
+    await blogService.update(blog.id, blog)
+    getAllBlogs()
   }
 
   const handleDelete = () => {
@@ -34,19 +28,21 @@ const Blog = ({ blog }) => {
     paddingLeft: 2,
     border: 'solid',
     borderWidth: 1,
-    marginBottom: 5
+    marginBottom: 10
   }
 
 
   return (
     <div style={blogStyle} className='blog'>
-      {blog.title} {blog.author}
+      <p>{blog.title}</p>
+      <p>Blog post by: {blog.author}</p>
       {detailsVisibility ?
         <div>
-          {blog.url}
+          <a href={blog.url}>{blog.url}</a>
           <br />
           likes: {blog.likes}
           <button onClick={() => handleLike()}>like</button>
+          <br />
           <button onClick={() => handleDelete()}>delete</button>
           <br />
           <button onClick={() => handleOnClick(false)}>Hide</button>
@@ -57,7 +53,8 @@ const Blog = ({ blog }) => {
 }
 
 Blog.propTypes = {
-  blog: PropTypes.object.isRequired
+  blog: PropTypes.object.isRequired,
+  getAllBlogs: PropTypes.func.isRequired
 }
 
 export default Blog

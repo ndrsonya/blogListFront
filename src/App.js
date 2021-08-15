@@ -22,15 +22,14 @@ const App = () => {
   const [user, setUser] = useState(null)
   const [newBlogVisibleButton, setNEwBlogVisibleButton] = useState(true)
 
-  useEffect(() => {
+  const getAllBlogs = () => {
     blogService.getAll().then(blogs => {
-      blogs.sort((a, b) => (a.likes > b.likes) ? 1 : -1)
+      blogs.sort((a, b) => (a.likes < b.likes) ? 1 : -1)
       setBlogs(blogs)
-    }
-    )
+    })
+  }
 
-
-  }, [])
+  useEffect(() => getAllBlogs(), [])
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
@@ -47,6 +46,8 @@ const App = () => {
       const user = await loginService.login({
         username, password,
       })
+
+      console.log('user', user)
 
       window.localStorage.setItem(
         'loggedBlogappUser', JSON.stringify(user)
@@ -127,7 +128,6 @@ const App = () => {
       <h2>blogs</h2>
 
       <Notification message={errorMessage} />
-
       {user === null ?
         loginForm() :
         <div>
@@ -139,10 +139,8 @@ const App = () => {
           </button>
 
           {
-            newBlogVisibleButton === true ?
-              <button
-                onClick={() => handleBlogFormVisibility()}
-              >
+            newBlogVisibleButton === true
+              ? <button onClick={() => handleBlogFormVisibility()}>
                 create new blog
               </button>
               : <BlogForm
@@ -156,11 +154,7 @@ const App = () => {
 
           <div>
             {blogs.map(blog =>
-              <div>
-                <Blog key={blog.id} blog={blog} />
-                <br />
-              </div>
-
+              <Blog key={blog.id} blog={blog} user={user} getAllBlogs={getAllBlogs} />
             )}
           </div>
         </div>

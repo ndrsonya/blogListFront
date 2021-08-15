@@ -7,7 +7,6 @@ const BlogForm = ({ newBlog, handleBLogChange, handleBlogSubmit }) => (
     <form
       onSubmit={handleBlogSubmit}
     >
-      <h1>create new</h1>
       title:
       <input
         name="title"
